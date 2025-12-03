@@ -1,1 +1,11 @@
 *.tfvars
+*.tfstate
+*.tfstate.backup
+.terraform/
+.terraform.lock.hcl
+
+keys/
+*.pem
+
+.DS_Store
+Thumbs.db
