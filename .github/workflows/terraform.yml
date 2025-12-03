@@ -46,6 +46,18 @@ jobs:
           TF_VAR_ssh_public_key: ${{ secrets.TF_VAR_SSH_PUBLIC_KEY }}
           TF_VAR_private_key: ${{ secrets.OCI_PRIVATE_KEY }}
           TF_VAR_namespace: ${{ secrets.namespace }}
+      
+      - name: Terraform Apply
+        run: terraform apply
+        env:
+          TF_VAR_tenancy_ocid: ${{ secrets.TF_VAR_TENANCY_OCID }}
+          TF_VAR_user_ocid: ${{ secrets.TF_VAR_USER_OCID }}
+          TF_VAR_fingerprint: ${{ secrets.TF_VAR_FINGERPRINT }}
+          TF_VAR_region: ${{ secrets.TF_VAR_REGION }}
+          TF_VAR_compartment_ocid: ${{ secrets.TF_VAR_COMPARTMENT_OCID }}
+          TF_VAR_ssh_public_key: ${{ secrets.TF_VAR_SSH_PUBLIC_KEY }}
+          TF_VAR_private_key: ${{ secrets.OCI_PRIVATE_KEY }}
+          TF_VAR_namespace: ${{ secrets.namespace }}
   
   deploy-frontend:
     name: 'Deploy Frontend to Bucket'
@@ -81,19 +93,19 @@ jobs:
       - name: 'Upload index.html'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
-          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/index.html --name index.html --force' 
+          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/index.html --name index.html --content-type "text/html" --force' 
           silent: false
 
       - name: 'Upload style.css'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
-          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/style.css --name style.css --force' 
+          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/style.css --name style.css --content-type "text/css" --force' 
           silent: false
 
       - name: 'Upload script.js'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
-          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/script.js --name script.js --force' 
+          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/script.js --name script.js --content-type "application/javascript" --force' 
           silent: false
 
       - name: Verify Deployment
