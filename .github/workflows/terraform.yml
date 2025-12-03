@@ -64,6 +64,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
+           # --- AÑADE ESTE PASO AQUÍ PARA DEBUGGING ---
+      - name: Listar archivos en el repositorio
+        run: ls -R Front
       - name: 'Upload index.html'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
