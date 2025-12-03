@@ -64,13 +64,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-           # --- AÑADE ESTE PASO AQUÍ PARA DEBUGGING ---
-      - name: Listar archivos en el repositorio
-        run: ls -R Front
+      - name: Setup OCI CLI config
+        run: |
+          mkdir -p ~/.oci
+          echo "[DEFAULT]" > ~/.oci/config
+          echo "user=${{ secrets.TF_VAR_USER_OCID }}" >> ~/.oci/config
+          echo "tenancy=${{ secrets.TF_VAR_TENANCY_OCID }}" >> ~/.oci/config
+          echo "region=${{ secrets.TF_VAR_REGION }}" >> ~/.oci/config
+          echo "fingerprint=${{ secrets.TF_VAR_FINGERPRINT }}" >> ~/.oci/config
+          echo "key_file=~/.oci/oci_api_key.pem" >> ~/.oci/config
+
+          echo "${{ secrets.OCI_PRIVATE_KEY }}" > ~/.oci/oci_api_key.pem
+          chmod 600 ~/.oci/oci_api_key.pem
+
+
       - name: 'Upload index.html'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
-          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/index.html --name index.html --force' 
+          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Frontend/index.html --name index.html --force' 
           silent: false
 
       - name: 'Upload style.css'
