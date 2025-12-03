@@ -81,7 +81,7 @@ jobs:
       - name: 'Upload index.html'
         uses: oracle-actions/run-oci-cli-command@v1.3.2
         with:
-          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Frontend/index.html --name index.html --force' 
+          command: 'os object put --bucket-name Cloud_Resume --namespace ${{ secrets.OCI_NAMESPACE }} --file Front/index.html --name index.html --force' 
           silent: false
 
       - name: 'Upload style.css'
