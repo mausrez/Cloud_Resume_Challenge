@@ -1,6 +1,6 @@
 resource "oci_objectstorage_bucket" "resume_bucket" {
 compartment_id = var.compartment_ocid
-namespace      = var.namespace
+namespace      = var.namespace123
 name = "Cloud_Resume"
 access_type    = "ObjectRead" 
   # Metadata opcional
